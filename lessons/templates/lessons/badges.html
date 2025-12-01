@@ -1,0 +1,178 @@
+{% extends 'lessons/base.html' %} {% block title %}Huy hiệu - Học Chữ Cái{%
+endblock %} {% block content %}
+<style>
+  .badges-header {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .badges-title {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .badges-subtitle {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .badge-counter {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: 600;
+  }
+
+  .badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+
+  .badge-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .badge-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .badge-icon {
+    font-size: 64px;
+    margin-bottom: 15px;
+  }
+
+  .badge-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10px;
+  }
+
+  .badge-desc {
+    font-size: 12px;
+    color: #999;
+    line-height: 1.5;
+  }
+
+  .badge-earned {
+    margin-top: 15px;
+    padding: 8px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .locked-badge {
+    opacity: 0.5;
+    filter: grayscale(100%);
+  }
+
+  .locked-badge .badge-icon {
+    position: relative;
+  }
+
+  .locked-badge::after {
+    content: "🔒";
+    position: absolute;
+    font-size: 32px;
+    right: 15px;
+    bottom: 15px;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 40px;
+    color: #999;
+  }
+
+  .empty-state-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+
+  .empty-state-text {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .empty-state-subtext {
+    font-size: 14px;
+    color: #bbb;
+  }
+
+  .back-home {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .back-home:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+  }
+</style>
+
+<a href="{% url 'home' %}" class="back-home">← Quay lại trang chủ</a>
+
+<div class="badges-header">
+  <div class="badges-title">🏆 Huy hiệu & Thành tích</div>
+  <div class="badges-subtitle">Các huy hiệu bạn đã đạt được</div>
+  <div class="badge-counter">{{ badges.count }} / 10 huy hiệu</div>
+</div>
+
+{% if badges %}
+<div class="badges-grid">
+  {% for badge in badges %}
+  <div class="badge-card">
+    <div class="badge-icon">⭐</div>
+    <div class="badge-name">{{ badge.name }}</div>
+    <div class="badge-desc">{{ badge.description }}</div>
+    <div class="badge-earned">✅ Đã đạt được</div>
+  </div>
+  {% endfor %}
+
+  <!-- Huy hiệu khóa -->
+  <div class="badge-card locked-badge">
+    <div class="badge-icon">🎯</div>
+    <div class="badge-name">Nhà vô địch</div>
+    <div class="badge-desc">Hoàn thành tất cả bài học</div>
+  </div>
+
+  <div class="badge-card locked-badge">
+    <div class="badge-icon">🔥</div>
+    <div class="badge-name">Streak</div>
+    <div class="badge-desc">Học liên tục 7 ngày</div>
+  </div>
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="empty-state-icon">🏆</div>
+  <div class="empty-state-text">Chưa có huy hiệu nào</div>
+  <div class="empty-state-subtext">Hoàn thành bài học để nhận huy hiệu!</div>
+  <br /><br />
+  <a href="{% url 'home' %}" class="back-home">Về trang chủ học bài</a>
+</div>
+{% endif %} {% endblock %}

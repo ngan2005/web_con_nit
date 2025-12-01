@@ -1,0 +1,245 @@
+{% extends 'lessons/base.html' %} {% block title %}Tiến độ - Học Chữ Cái{%
+endblock %} {% block content %}
+<style>
+  .progress-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .progress-title {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .main-progress {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .progress-circle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .progress-percentage {
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .progress-label {
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  .progress-stats {
+    flex: 1;
+  }
+
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+
+  .stat-bar {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 5px;
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    transition: width 0.3s ease;
+  }
+
+  .lessons-status {
+    margin-top: 40px;
+  }
+
+  .lessons-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #667eea;
+  }
+
+  .lesson-status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .lesson-status-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .lesson-status-card.completed {
+    border-left: 5px solid #4caf50;
+  }
+
+  .lesson-status-card.not-completed {
+    border-left: 5px solid #999;
+  }
+
+  .lesson-status-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .lesson-status-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .lesson-status-text {
+    font-size: 14px;
+    color: #999;
+  }
+
+  .completed-badge {
+    display: inline-block;
+    background: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  .not-completed-badge {
+    display: inline-block;
+    background: #f5f5f5;
+    color: #999;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+  }
+
+  .empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .back-home {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .back-home:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+  }
+</style>
+
+<a href="{% url 'home' %}" class="back-home">← Quay lại trang chủ</a>
+
+<div class="progress-header">
+  <div class="progress-title">📊 Tiến độ học tập của {{ user.username }}</div>
+
+  <div class="main-progress">
+    <div class="progress-circle">
+      <div class="progress-percentage">
+        {{ completion_percentage|floatformat:0 }}%
+      </div>
+      <div class="progress-label">Hoàn thành</div>
+    </div>
+
+    <div class="progress-stats">
+      <div class="stat-item">
+        <span>Bài học hoàn thành</span>
+        <strong>{{ completed_lessons.count }} / {{ total_lessons }}</strong>
+      </div>
+      <div class="stat-bar">
+        <div
+          class="stat-bar-fill"
+          style="width: {{ completion_percentage|floatformat:0 }}%"
+        ></div>
+      </div>
+
+      <div class="stat-item" style="margin-top: 20px">
+        <span>Tổng điểm</span>
+        <strong>{{ progress.total_score }} điểm</strong>
+      </div>
+
+      <div class="stat-item">
+        <span>Huy hiệu</span>
+        <strong>{{ progress.badges.count }} huy hiệu</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lessons-status">
+  <div class="lessons-title">📚 Trạng thái bài học</div>
+
+  {% if completed_lessons or total_lessons > 0 %}
+  <div class="lesson-status-grid">
+    {% for lesson in lessons %}
+    <div
+      class="lesson-status-card {% if lesson in completed_lessons %}completed{% else %}not-completed{% endif %}"
+    >
+      <div class="lesson-status-icon">
+        {% if lesson.lesson_type == 'alphabet' %} 🔤 {% elif lesson.lesson_type
+        == 'vocabulary' %} 📖 {% elif lesson.lesson_type == 'sentences' %} 💬 {%
+        else %} 🎵 {% endif %}
+      </div>
+      <div class="lesson-status-name">{{ lesson.title }}</div>
+      <div class="lesson-status-text">
+        {{ lesson.description|truncatewords:5 }}
+      </div>
+
+      {% if lesson in completed_lessons %}
+      <div class="completed-badge">✅ Hoàn thành</div>
+      {% else %}
+      <div class="not-completed-badge">⏳ Chưa làm</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">📚</div>
+    <p>Chưa có bài học nào. Hãy quay lại sau!</p>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

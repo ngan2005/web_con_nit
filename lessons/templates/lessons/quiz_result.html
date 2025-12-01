@@ -1,0 +1,210 @@
+{% extends 'lessons/base.html' %}
+
+{% block title %}Kết quả - {{ lesson.title }}{% endblock %}
+
+{% block content %}
+<style>
+    .result-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .result-card {
+        background: white;
+        padding: 50px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .result-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+        animation: bounce 0.6s ease;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    .result-title {
+        color: #667eea;
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .result-message {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .score-display {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+    }
+
+    .score-number {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .score-label {
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+    .progress-ring {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 20px;
+    }
+
+    .progress-ring-circle {
+        transition: stroke-dashoffset 0.35s;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-next {
+        background: #4caf50;
+        color: white;
+    }
+
+    .btn-next:hover {
+        background: #45a049;
+        transform: translateY(-2px);
+    }
+
+    .btn-retry {
+        background: #2196f3;
+        color: white;
+    }
+
+    .btn-retry:hover {
+        background: #0b7dda;
+        transform: translateY(-2px);
+    }
+
+    .btn-home {
+        background: #999;
+        color: white;
+    }
+
+    .btn-home:hover {
+        background: #777;
+        transform: translateY(-2px);
+    }
+
+    .feedback {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        border-left: 4px solid #667eea;
+    }
+
+    .feedback-title {
+        color: #667eea;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .feedback-text {
+        color: #666;
+    }
+
+    .star-rating {
+        font-size: 32px;
+        margin: 20px 0;
+        letter-spacing: 10px;
+    }
+</style>
+
+<div class="result-container">
+    {% if percentage >= 80 %}
+        <div class="result-card">
+            <div class="result-icon">🎉</div>
+            <div class="result-title">Tuyệt vời!</div>
+            <div class="result-message">Bạn làm bài rất tốt</div>
+    {% elif percentage >= 60 %}
+        <div class="result-card">
+            <div class="result-icon">😊</div>
+            <div class="result-title">Chúc mừng!</div>
+            <div class="result-message">Bạn vượt qua bài kiểm tra</div>
+    {% else %}
+        <div class="result-card">
+            <div class="result-icon">💪</div>
+            <div class="result-title">Tiếp tục cố gắng!</div>
+            <div class="result-message">Hãy thử lại để đạt điểm cao hơn</div>
+    {% endif %}
+            
+            <div class="score-display">
+                <div class="score-number">{{ score }}/{{ total }}</div>
+                <div class="score-label">Điểm của bạn</div>
+            </div>
+
+            {% if percentage >= 80 %}
+                <div class="star-rating">⭐⭐⭐</div>
+            {% elif percentage >= 60 %}
+                <div class="star-rating">⭐⭐</div>
+            {% else %}
+                <div class="star-rating">⭐</div>
+            {% endif %}
+
+            <div style="font-size: 24px; color: #667eea; margin: 20px 0;">
+                {{ percentage|floatformat:0 }}%
+            </div>
+
+            <div class="feedback">
+                <div class="feedback-title">💡 Gợi ý:</div>
+                <div class="feedback-text">
+                    {% if percentage >= 80 %}
+                        Tuyệt vời! Bạn đã nắm vững kiến thức bài này. Hãy tiếp tục học thêm các bài tiếp theo.
+                    {% elif percentage >= 60 %}
+                        Tốt lắm! Bạn đã hiểu phần lớn nội dung. Hãy ôn tập lại để hoàn thiện hơn.
+                    {% else %}
+                        Đừng nản chí! Hãy quay lại bài học để ôn tập và thử lại.
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                {% if percentage >= 80 %}
+                    <a href="{% url 'home' %}" class="action-btn btn-next">Bài học tiếp theo →</a>
+                {% else %}
+                    <a href="{% url 'quiz' lesson.id %}" class="action-btn btn-retry">Làm lại bài tập</a>
+                {% endif %}
+                <a href="{% url 'lesson_detail' lesson.id %}" class="action-btn btn-home">Ôn bài học</a>
+                <a href="{% url 'home' %}" class="action-btn btn-home">Trang chủ</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

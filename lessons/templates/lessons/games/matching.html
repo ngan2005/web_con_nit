@@ -1,0 +1,365 @@
+{% extends 'lessons/base.html' %}
+
+{% block title %}Trò chơi nối đôi - Học Chữ Cái{% endblock %}
+
+{% block content %}
+<style>
+    .game-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .game-header {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .game-title {
+        color: white;
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .game-board {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .game-stats {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f5f5f5;
+    }
+
+    .stat-box {
+        text-align: center;
+    }
+
+    .stat-label {
+        font-size: 12px;
+        color: #999;
+        margin-bottom: 5px;
+    }
+
+    .stat-value {
+        font-size: 28px;
+        font-weight: bold;
+        color: #f5576c;
+    }
+
+    .matching-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 30px;
+    }
+
+    .matching-column {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .matching-item {
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        font-weight: 600;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        user-select: none;
+    }
+
+    .matching-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .matching-item.selected {
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    }
+
+    .matching-item.correct {
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .matching-item.correct:hover {
+        transform: none;
+    }
+
+    .message {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .message.success {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .message.error {
+        background: #ffebee;
+        color: #c62828;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .btn-primary {
+        background: #f5576c;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #e83e54;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background: #999;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background: #777;
+        transform: translateY(-2px);
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #f5576c;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .back-btn:hover {
+        text-decoration: underline;
+    }
+
+    .instructions {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        border-left: 4px solid #f5576c;
+    }
+
+    .instructions strong {
+        color: #f5576c;
+    }
+
+    @media (max-width: 768px) {
+        .matching-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .game-stats {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .matching-column h3 {
+            text-align: center;
+        }
+    }
+</style>
+
+<a href="{% url 'home' %}" class="back-btn">← Quay lại trang chủ</a>
+
+<div class="game-container">
+    <div class="game-header">
+        <div class="game-title">🔗 Trò chơi Nối đôi</div>
+        <p>Nối hình ảnh với từ tiếng Việt tương ứng</p>
+    </div>
+
+    <div class="game-board">
+        <div class="instructions">
+            <strong>📝 Hướng dẫn:</strong> Bấm vào một từ ở bên trái, rồi bấm vào hình ảnh hoặc định nghĩa phù hợp ở bên phải
+        </div>
+
+        <div class="game-stats">
+            <div class="stat-box">
+                <div class="stat-label">Cặp đúng</div>
+                <div class="stat-value" id="correctCount">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Tổng cộng</div>
+                <div class="stat-value" id="totalCount">6</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Tiến độ</div>
+                <div class="stat-value" id="progressPercent">0%</div>
+            </div>
+        </div>
+
+        <div id="message" class="message" style="display: none;"></div>
+
+        <div class="matching-grid">
+            <div class="matching-column">
+                <h3 style="text-align: center; color: #667eea;">Từ Tiếng Việt</h3>
+                <div id="leftItems"></div>
+            </div>
+            <div class="matching-column">
+                <h3 style="text-align: center; color: #667eea;">Nghĩa / Hình ảnh</h3>
+                <div id="rightItems"></div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="resetGame()">🔄 Chơi lại</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">← Trang chủ</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const pairs = [
+        { left: 'Con Mèo', right: '🐱 Một động vật nuôi' },
+        { left: 'Con Chó', right: '🐶 Bạn thân thiết của con người' },
+        { left: 'Quả Táo', right: '🍎 Trái cây đỏ ngọt' },
+        { left: 'Ngôi Nhà', right: '🏠 Nơi ở của con người' },
+        { left: 'Xe Ô Tô', right: '🚗 Phương tiện giao thông' },
+        { left: 'Con Chim', right: '🐦 Động vật có cánh và lông' }
+    ];
+
+    let matched = [];
+    let selected = null;
+
+    function initGame() {
+        matched = [];
+        selected = null;
+
+        // Shuffle right items
+        let rightItems = pairs.map(p => p.right);
+        rightItems = rightItems.sort(() => Math.random() - 0.5);
+
+        // Create left items
+        let leftContainer = document.getElementById('leftItems');
+        leftContainer.innerHTML = '';
+        pairs.forEach((pair, index) => {
+            let item = document.createElement('div');
+            item.className = 'matching-item';
+            item.textContent = pair.left;
+            item.dataset.index = index;
+            item.onclick = () => selectLeft(index, item);
+            leftContainer.appendChild(item);
+        });
+
+        // Create right items
+        let rightContainer = document.getElementById('rightItems');
+        rightContainer.innerHTML = '';
+        rightItems.forEach((right, index) => {
+            let item = document.createElement('div');
+            item.className = 'matching-item';
+            item.textContent = right;
+            item.dataset.value = right;
+            item.onclick = () => selectRight(right, item);
+            rightContainer.appendChild(item);
+        });
+
+        updateStats();
+        document.getElementById('message').style.display = 'none';
+    }
+
+    function selectLeft(index, element) {
+        if (matched.includes(index)) return;
+        
+        // Remove previous selection
+        document.querySelectorAll('#leftItems .matching-item.selected').forEach(el => {
+            el.classList.remove('selected');
+        });
+
+        if (selected === index) {
+            selected = null;
+        } else {
+            selected = index;
+            element.classList.add('selected');
+        }
+    }
+
+    function selectRight(rightValue, element) {
+        if (!selected !== null && pairs[selected].right === rightValue) {
+            matched.push(selected);
+            
+            document.querySelector(`#leftItems .matching-item[data-index="${selected}"]`).classList.add('correct');
+            element.classList.add('correct');
+            
+            selected = null;
+            updateStats();
+
+            if (matched.length === pairs.length) {
+                showMessage('Chúc mừng! Bạn nối đúng tất cả! 🎉', 'success');
+            }
+        } else if (selected !== null) {
+            showMessage('Sai rồi! Thử lại nha! ❌', 'error');
+            selected = null;
+            document.querySelectorAll('#leftItems .matching-item.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+        }
+    }
+
+    function updateStats() {
+        document.getElementById('correctCount').textContent = matched.length;
+        document.getElementById('totalCount').textContent = pairs.length;
+        let percent = Math.round((matched.length / pairs.length) * 100);
+        document.getElementById('progressPercent').textContent = percent + '%';
+    }
+
+    function showMessage(msg, type) {
+        let messageEl = document.getElementById('message');
+        messageEl.textContent = msg;
+        messageEl.className = 'message ' + type;
+        messageEl.style.display = 'block';
+        setTimeout(() => {
+            messageEl.style.display = 'none';
+        }, 2000);
+    }
+
+    function resetGame() {
+        initGame();
+    }
+
+    // Start game
+    initGame();
+</script>
+
+{% endblock %}

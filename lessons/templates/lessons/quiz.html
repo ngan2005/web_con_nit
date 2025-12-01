@@ -1,0 +1,246 @@
+{% extends 'lessons/base.html' %} {% block title %}Bài tập - {{ lesson.title
+}}{% endblock %} {% block content %}
+<style>
+  .quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .quiz-header {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .quiz-title {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .question-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .question-number {
+    color: #667eea;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .question-text {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .question-image {
+    width: 100%;
+    max-width: 300px;
+    margin: 20px 0;
+    border-radius: 10px;
+  }
+
+  .options {
+    display: grid;
+    gap: 15px;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .option-label:hover {
+    background: #f0f0f0;
+    border-color: #667eea;
+  }
+
+  .option-label input[type="radio"] {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+
+  .option-label input[type="radio"]:checked + .option-text {
+    color: #667eea;
+    font-weight: 600;
+  }
+
+  .option-label.checked {
+    background: #f0f7ff;
+    border-color: #667eea;
+  }
+
+  .option-text {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+  }
+
+  .quiz-stats {
+    display: flex;
+    justify-content: space-between;
+    color: #999;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .back-btn:hover {
+    color: #5568d3;
+  }
+</style>
+
+<div class="quiz-container">
+  <a href="{% url 'lesson_detail' lesson.id %}" class="back-btn"
+    >← Quay lại bài học</a
+  >
+
+  <div class="quiz-header">
+    <div class="quiz-title">📝 Bài tập</div>
+    <p>{{ lesson.title }}</p>
+  </div>
+
+  {% if questions %}
+  <form method="post" action="{% url 'submit_quiz' lesson.id %}" id="quizForm">
+    {% csrf_token %} {% for question in questions %}
+    <div class="question-card">
+      <div class="question-number">
+        Câu {{ forloop.counter }}/{{ questions.count }}
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ progress }}%"></div>
+      </div>
+
+      <div class="question-text">{{ question.question_text }}</div>
+
+      {% if question.image %}
+      <img
+        src="{{ question.image.url }}"
+        alt="Question"
+        class="question-image"
+      />
+      {% endif %} {% if question.question_type == 'multiple_choice' %}
+      <div class="options">
+        {% for option in question.options.all %}
+        <label class="option-label" onclick="this.classList.toggle('checked')">
+          <input
+            type="radio"
+            name="question_{{ question.id }}"
+            value="{{ option.id }}"
+            required
+          />
+          <span class="option-text">
+            {% if option.image %}
+            <img
+              src="{{ option.image.url }}"
+              alt=""
+              style="width: 50px; height: 50px; margin-right: 10px"
+            />
+            {% endif %} {{ option.text }}
+          </span>
+        </label>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="submit-btn">✅ Nộp bài</button>
+  </form>
+  {% else %}
+  <div class="question-card">
+    <p style="text-align: center; color: #999">
+      Chưa có câu hỏi nào cho bài học này.
+    </p>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+  // Allow selecting options with click on the label
+  document.querySelectorAll(".option-label").forEach((label) => {
+    label.addEventListener("click", function (e) {
+      if (e.target.tagName !== "INPUT") {
+        this.querySelector('input[type="radio"]').checked = true;
+      }
+    });
+
+    label
+      .querySelector('input[type="radio"]')
+      .addEventListener("change", function () {
+        // Remove checked class from siblings
+        this.closest(".options")
+          .querySelectorAll(".option-label")
+          .forEach((l) => {
+            l.classList.remove("checked");
+          });
+        // Add checked class to current
+        this.closest(".option-label").classList.add("checked");
+      });
+  });
+</script>
+
+{% endblock %}
