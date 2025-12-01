@@ -3,15 +3,19 @@
 ## 🎯 Bắt đầu ở đây
 
 ### 🚀 Mới lần đầu?
+
 👉 **Đọc**: [QUICKSTART.md](QUICKSTART.md) - Khởi động trong 2 phút
 
 ### 📖 Muốn biết chi tiết?
+
 👉 **Đọc**: [HUONG_DAN_TOAN_BO.md](HUONG_DAN_TOAN_BO.md) - Hướng dẫn hoàn chỉnh
 
 ### 💡 Muốn biết tính năng gì?
+
 👉 **Đọc**: [FEATURES.md](FEATURES.md) - Danh sách toàn bộ tính năng
 
 ### 📊 Muốn biết được xây dựng sao?
+
 👉 **Đọc**: [SUMMARY.md](SUMMARY.md) - Tóm tắt kỹ thuật
 
 ---
@@ -19,12 +23,14 @@
 ## 📚 DANH SÁCH TÀI LIỆU
 
 ### Cho người mới bắt đầu
-1. **[QUICKSTART.md](QUICKSTART.md)** 
+
+1. **[QUICKSTART.md](QUICKSTART.md)**
    - ⚡ 30 giây khởi động
    - 🔑 Tài khoản mặc định
    - 🛠️ Lệnh hữu ích
 
 ### Cho người dùng thường
+
 2. **[HUONG_DAN_TOAN_BO.md](HUONG_DAN_TOAN_BO.md)**
    - 📱 Hướng dẫn tất cả trang
    - 👨‍🎓 Hướng dẫn cho học sinh
@@ -32,13 +38,16 @@
    - 🐛 Giải quyết vấn đề
 
 ### Cho người phát triển
+
 3. **[README.md](README.md)**
+
    - 🏗️ Cấu trúc dự án
    - 🔧 Cài đặt chi tiết
    - 📊 Models & Views
    - 🎨 Thiết kế
 
 4. **[FEATURES.md](FEATURES.md)**
+
    - ✅ Tính năng đã làm
    - 🔜 Tính năng tương lai
    - 📈 Độ phức tạp
@@ -49,6 +58,7 @@
    - 🔐 Bảo mật
 
 ### Hướng dẫn cũ (Vietnamese)
+
 6. **[HUONG_DAN.md](HUONG_DAN.md)**
    - Chi tiết cho admin
    - Cách quản lý
@@ -61,7 +71,9 @@
 ### ❓ Bạn là ai?
 
 #### 👶 Trẻ em học
+
 → Không cần đọc, chỉ cần:
+
 1. Vào http://127.0.0.1:8000/
 2. Đăng ký / đăng nhập
 3. Chọn bài học
@@ -69,33 +81,38 @@
 5. Chơi trò chơi
 
 #### 👨‍🎓 Học sinh / Người học
+
 → Đọc: **[QUICKSTART.md](QUICKSTART.md)** + **[HUONG_DAN_TOAN_BO.md](HUONG_DAN_TOAN_BO.md)**
 
 #### 👨‍💼 Giáo viên / Quản lý
+
 → Đọc: **[HUONG_DAN_TOAN_BO.md](HUONG_DAN_TOAN_BO.md)** phần "Hướng dẫn cho giáo viên"
 
 #### 👨‍💻 Lập trình viên / Nhà phát triển
+
 → Đọc theo thứ tự:
+
 1. [README.md](README.md) - Cấu trúc chung
 2. [SUMMARY.md](SUMMARY.md) - Tech stack
 3. [FEATURES.md](FEATURES.md) - Tính năng
 4. Source code các file
 
 #### 🤖 Người muốn deploy
+
 → Đọc: [README.md](README.md) phần "Deployment"
 
 ---
 
 ## 📋 SỰ CẦU CẬP NHẬT TÀI LIỆU
 
-| File | Cập nhật lần cuối | Phiên bản |
-|------|------------------|----------|
-| README.md | 02/Dec/2025 | 1.0 |
-| QUICKSTART.md | 02/Dec/2025 | 1.0 |
-| HUONG_DAN.md | 02/Dec/2025 | 1.0 |
-| HUONG_DAN_TOAN_BO.md | 02/Dec/2025 | 1.0 |
-| FEATURES.md | 02/Dec/2025 | 1.0 |
-| SUMMARY.md | 02/Dec/2025 | 1.0 |
+| File                 | Cập nhật lần cuối | Phiên bản |
+| -------------------- | ----------------- | --------- |
+| README.md            | 02/Dec/2025       | 1.0       |
+| QUICKSTART.md        | 02/Dec/2025       | 1.0       |
+| HUONG_DAN.md         | 02/Dec/2025       | 1.0       |
+| HUONG_DAN_TOAN_BO.md | 02/Dec/2025       | 1.0       |
+| FEATURES.md          | 02/Dec/2025       | 1.0       |
+| SUMMARY.md           | 02/Dec/2025       | 1.0       |
 
 ---
 
@@ -118,30 +135,39 @@ FEATURES.md (Phát triển)
 ## 🔍 TÌM KIẾM NHANH
 
 ### ❓ "Làm sao để khởi động?"
+
 → [QUICKSTART.md](QUICKSTART.md)
 
 ### ❓ "Tài khoản là gì?"
+
 → [QUICKSTART.md](QUICKSTART.md) - Tài khoản mặc định
 
 ### ❓ "Làm sao để thêm bài học?"
+
 → [HUONG_DAN_TOAN_BO.md](HUONG_DAN_TOAN_BO.md) - Hướng dẫn cho giáo viên
 
 ### ❓ "Làm sao để làm bài tập?"
+
 → [HUONG_DAN_TOAN_BO.md](HUONG_DAN_TOAN_BO.md) - Hướng dẫn cho học sinh
 
 ### ❓ "Cấu trúc dự án như thế nào?"
+
 → [README.md](README.md) - Cấu trúc dự án
 
 ### ❓ "Công nghệ dùng gì?"
+
 → [SUMMARY.md](SUMMARY.md) - Technology Stack
 
 ### ❓ "Có tính năng gì?"
+
 → [FEATURES.md](FEATURES.md) - Danh sách tính năng
 
 ### ❓ "Gặp lỗi?"
+
 → [HUONG_DAN_TOAN_BO.md](HUONG_DAN_TOAN_BO.md) - Giải quyết vấn đề
 
 ### ❓ "Muốn phát triển thêm?"
+
 → [README.md](README.md) + [FEATURES.md](FEATURES.md)
 
 ---
@@ -149,6 +175,7 @@ FEATURES.md (Phát triển)
 ## 💬 LIÊN HỆ & HỖ TRỢ
 
 ### Các bước khắc phục:
+
 1. ✅ Kiểm tra README.md
 2. ✅ Kiểm tra QUICKSTART.md
 3. ✅ Kiểm tra error message
@@ -156,6 +183,7 @@ FEATURES.md (Phát triển)
 5. ✅ Chạy: `python manage.py check`
 
 ### Các tài liệu hữu ích:
+
 - Django docs: https://docs.djangoproject.com/
 - Python docs: https://docs.python.org/
 - SQLite docs: https://www.sqlite.org/docs.html
@@ -165,16 +193,19 @@ FEATURES.md (Phát triển)
 ## 🎓 DANH SÁCH KĨ NĂNG CẦN
 
 ### Để dùng ứng dụng
+
 - ✅ Sử dụng trình duyệt web
 - ✅ Đọc tiếng Việt
 - ✅ Chuột & bàn phím
 
 ### Để quản lý (Admin)
+
 - ✅ Sử dụng web
 - ✅ Đọc tiếng Việt
 - ✅ Cơ bản về máy tính
 
 ### Để phát triển (Dev)
+
 - ✅ Python 3.8+
 - ✅ Django 5.2+
 - ✅ HTML/CSS cơ bản
@@ -200,11 +231,13 @@ tzdata==2025.2
 ## 🎯 MỤC TIÊU
 
 ### Ngắn hạn
+
 - ✅ Ứng dụng chạy được
 - ✅ Học sinh có thể học
 - ✅ Giáo viên có thể quản lý
 
 ### Dài hạn
+
 - 📅 Thêm audio
 - 📅 Mobile app
 - 📅 AI cá nhân hóa

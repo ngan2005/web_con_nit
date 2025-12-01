@@ -2,7 +2,7 @@
 
 ## 🎯 Giới thiệu
 
-**Học Chữ Cái** là ứng dụng web học tiếng Việt cho trẻ em, được xây dựng bằng Django (Python). 
+**Học Chữ Cái** là ứng dụng web học tiếng Việt cho trẻ em, được xây dựng bằng Django (Python).
 Ứng dụng có giao diện thân thiện, trò chơi tương tác, và hệ thống theo dõi tiến độ.
 
 ---
@@ -10,26 +10,31 @@
 ## 🚀 KHỞI ĐỘNG NHANH (2 phút)
 
 ### Bước 1: Mở PowerShell
+
 ```powershell
 # Tìm PowerShell trên máy tính và mở
 ```
 
 ### Bước 2: Di chuyển vào thư mục
+
 ```bash
 cd D:\pythonweb
 ```
 
 ### Bước 3: Kích hoạt môi trường
+
 ```bash
 .venv\Scripts\activate
 ```
 
 ### Bước 4: Khởi động server
+
 ```bash
 python manage.py runserver
 ```
 
 ### Bước 5: Mở trình duyệt
+
 Vào địa chỉ: **http://127.0.0.1:8000/**
 
 ✅ **Xong! Ứng dụng đã sẵn sàng**
@@ -39,6 +44,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
 ## 📱 CÁC TRANG CHÍNH
 
 ### 🏠 Trang chủ (Home)
+
 - **URL**: http://127.0.0.1:8000/
 - **Nội dung**:
   - Danh sách tất cả bài học
@@ -47,6 +53,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
   - Liên kết đến các trò chơi
 
 ### 👤 Đăng ký (Register)
+
 - **URL**: http://127.0.0.1:8000/register/
 - **Điền thông tin**:
   - Tên đăng nhập (không dấu, không khoảng trắng)
@@ -57,6 +64,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
 - ✅ Tự động đăng nhập sau khi đăng ký
 
 ### 🔐 Đăng nhập (Login)
+
 - **URL**: http://127.0.0.1:8000/login/
 - **Điền**:
   - Tên đăng nhập
@@ -64,6 +72,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
 - **Nhấn "Đăng nhập"**
 
 ### 📚 Chi tiết bài học
+
 - **URL**: http://127.0.0.1:8000/lesson/<id>/
 - **Nội dung**:
   - Tiêu đề bài
@@ -72,6 +81,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
   - Nút "Làm bài tập"
 
 ### ✅ Làm bài tập
+
 - **URL**: http://127.0.0.1:8000/quiz/<id>/
 - **Nội dung**:
   - Câu hỏi trắc nghiệm
@@ -80,6 +90,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
   - Nút "Nộp bài"
 
 ### 📊 Xem tiến độ
+
 - **URL**: http://127.0.0.1:8000/progress/
 - **Xem**:
   - Phần trăm hoàn thành
@@ -89,6 +100,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
   - Chi tiết từng bài
 
 ### 🏆 Huy hiệu
+
 - **URL**: http://127.0.0.1:8000/badges/
 - **Xem**:
   - Huy hiệu đã đạt
@@ -96,6 +108,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
   - Điều kiện mở huy hiệu
 
 ### 🎮 Trò chơi Đoán từ
+
 - **URL**: http://127.0.0.1:8000/games/hangman/
 - **Cách chơi**:
   1. Bấm các nút chữ cái
@@ -104,6 +117,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
   4. Bấm "Chơi lại" để tiếp tục
 
 ### 🎮 Trò chơi Nối đôi
+
 - **URL**: http://127.0.0.1:8000/games/matching/
 - **Cách chơi**:
   1. Bấm một từ ở bên trái
@@ -112,6 +126,7 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
   4. Bấm "Chơi lại" để tiếp tục
 
 ### 🛠️ Quản trị Admin
+
 - **URL**: http://127.0.0.1:8000/admin/
 - **Tài khoản mặc định**:
   - Username: `admin`
@@ -127,41 +142,49 @@ Vào địa chỉ: **http://127.0.0.1:8000/**
 ## 👨‍🎓 HƯỚNG DẪN CHO HỌC SINH
 
 ### 1️⃣ Đăng ký tài khoản
+
 ```
 Trang chủ → Nút "Đăng ký" → Điền thông tin → "Đăng ký"
 ```
 
 ### 2️⃣ Đăng nhập
+
 ```
 Trang chủ → Nút "Đăng nhập" → Nhập tên + mật khẩu → "Đăng nhập"
 ```
 
 ### 3️⃣ Học bài
+
 ```
 Trang chủ → Chọn bài → Đọc nội dung → "Làm bài tập"
 ```
 
 ### 4️⃣ Làm bài tập
+
 ```
 Chọn đáp án → Tiếp tục câu hỏi → "Nộp bài" → Xem kết quả
 ```
 
 ### 5️⃣ Chơi trò chơi
+
 ```
 Trang chủ → Chọn trò chơi → Chơi → "Chơi lại"
 ```
 
 ### 6️⃣ Xem tiến độ
+
 ```
 Menu → "Tiến độ" → Xem chi tiết
 ```
 
 ### 7️⃣ Xem huy hiệu
+
 ```
 Menu → "Huy hiệu" → Xem huy hiệu đã đạt
 ```
 
 ### 8️⃣ Đăng xuất
+
 ```
 Menu → Tên của bạn → "Đăng xuất"
 ```
@@ -171,6 +194,7 @@ Menu → Tên của bạn → "Đăng xuất"
 ## 👨‍💼 HƯỚNG DẪN CHO GIÁO VIÊN
 
 ### 1️⃣ Truy cập quản trị
+
 ```
 http://127.0.0.1:8000/admin/
 Username: admin
@@ -178,6 +202,7 @@ Password: admin123
 ```
 
 ### 2️⃣ Thêm bài học
+
 ```
 Admin → "Lessons" → "Add Lesson" → Điền thông tin:
   - Title: Tên bài
@@ -189,6 +214,7 @@ Admin → "Lessons" → "Add Lesson" → Điền thông tin:
 ```
 
 ### 3️⃣ Thêm câu hỏi
+
 ```
 Admin → "Questions" → "Add Question" → Điền thông tin:
   - Lesson: Chọn bài học
@@ -201,16 +227,19 @@ Admin → "Questions" → "Add Question" → Điền thông tin:
 ```
 
 ### 4️⃣ Cấp huy hiệu
+
 ```
 Admin → "Badges" → Chọn huy hiệu → Ở "Users" thêm học sinh → "Save"
 ```
 
 ### 5️⃣ Xem tiến độ học sinh
+
 ```
 Admin → "Student Progresses" → Chọn học sinh → Xem chi tiết
 ```
 
 ### 6️⃣ Xem câu trả lời
+
 ```
 Admin → "Quiz Answers" → Lọc theo học sinh → Xem chi tiết
 ```
@@ -222,6 +251,7 @@ Admin → "Quiz Answers" → Lọc theo học sinh → Xem chi tiết
 ### Models có sẵn:
 
 #### 1. **Lesson** - Bài học
+
 ```
 - title: Tên bài
 - description: Mô tả
@@ -233,6 +263,7 @@ Admin → "Quiz Answers" → Lọc theo học sinh → Xem chi tiết
 ```
 
 #### 2. **Question** - Câu hỏi
+
 ```
 - lesson: Bài học
 - question_text: Nội dung câu
@@ -242,6 +273,7 @@ Admin → "Quiz Answers" → Lọc theo học sinh → Xem chi tiết
 ```
 
 #### 3. **QuestionOption** - Tùy chọn trả lời
+
 ```
 - question: Câu hỏi
 - text: Nội dung
@@ -251,6 +283,7 @@ Admin → "Quiz Answers" → Lọc theo học sinh → Xem chi tiết
 ```
 
 #### 4. **StudentProgress** - Tiến độ học sinh
+
 ```
 - user: Người dùng
 - current_lesson: Bài hiện tại
@@ -259,6 +292,7 @@ Admin → "Quiz Answers" → Lọc theo học sinh → Xem chi tiết
 ```
 
 #### 5. **QuizAnswer** - Câu trả lời
+
 ```
 - user: Học sinh
 - question: Câu hỏi
@@ -268,6 +302,7 @@ Admin → "Quiz Answers" → Lọc theo học sinh → Xem chi tiết
 ```
 
 #### 6. **Badge** - Huy hiệu
+
 ```
 - name: Tên huy hiệu
 - description: Mô tả
@@ -316,31 +351,33 @@ python manage.py runserver 8001
 
 ## 🌐 CẤU TRÚC URL
 
-| Path | View | Mô tả |
-|------|------|-------|
-| `/` | home | Trang chủ |
-| `/register/` | register | Đăng ký |
-| `/login/` | login_view | Đăng nhập |
-| `/logout/` | logout_view | Đăng xuất |
-| `/lesson/<id>/` | lesson_detail | Chi tiết bài |
-| `/quiz/<id>/` | quiz | Làm bài tập |
-| `/quiz/<id>/submit/` | submit_quiz | Nộp bài |
-| `/progress/` | progress | Xem tiến độ |
-| `/badges/` | my_badges | Xem huy hiệu |
-| `/games/hangman/` | game_hangman | Chơi Hangman |
-| `/games/matching/` | game_matching | Chơi Matching |
-| `/admin/` | Django Admin | Quản trị |
+| Path                 | View          | Mô tả         |
+| -------------------- | ------------- | ------------- |
+| `/`                  | home          | Trang chủ     |
+| `/register/`         | register      | Đăng ký       |
+| `/login/`            | login_view    | Đăng nhập     |
+| `/logout/`           | logout_view   | Đăng xuất     |
+| `/lesson/<id>/`      | lesson_detail | Chi tiết bài  |
+| `/quiz/<id>/`        | quiz          | Làm bài tập   |
+| `/quiz/<id>/submit/` | submit_quiz   | Nộp bài       |
+| `/progress/`         | progress      | Xem tiến độ   |
+| `/badges/`           | my_badges     | Xem huy hiệu  |
+| `/games/hangman/`    | game_hangman  | Chơi Hangman  |
+| `/games/matching/`   | game_matching | Chơi Matching |
+| `/admin/`            | Django Admin  | Quản trị      |
 
 ---
 
 ## 🐛 GIẢI QUYẾT VẤN ĐỀ
 
 ### Lỗi: "Port 8000 already in use"
+
 ```bash
 python manage.py runserver 8001
 ```
 
 ### Lỗi: "Database is locked"
+
 ```bash
 # Xóa database
 del db.sqlite3
@@ -351,16 +388,19 @@ python seed_data.py
 ```
 
 ### Lỗi: "Module not found"
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### Lỗi: "CSS/JS không tải"
+
 ```bash
 python manage.py collectstatic --noinput
 ```
 
 ### Lỗi: "Image không hiển thị"
+
 - Kiểm tra thư mục `media/` tồn tại
 - Kiểm tra cài đặt trong `settings.py`
 - Kiểm tra quyền truy cập
@@ -452,12 +492,14 @@ D:\pythonweb/
 ## 🎓 LƯU Ý QUAN TRỌNG
 
 ✅ **Làm được**:
+
 - Tạo bài học trực tiếp từ admin
 - Chỉnh sửa bài học bất cứ lúc nào
 - Xem tiến độ học sinh chi tiết
 - Xóa dữ liệu an toàn
 
 ⚠️ **Cần cẩn thận**:
+
 - Xóa database sẽ mất tất cả dữ liệu
 - Không xóa file quan trọng
 - Không sửa code vô ý

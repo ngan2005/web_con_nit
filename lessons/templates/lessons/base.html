@@ -1,259 +1,279 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Học Chữ Cái - Tiếng Việt cho Bé{% endblock %}</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}Học Chữ Cái - Tiếng Việt cho Bé{% endblock %}
+    </title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      body {
+        font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        letter-spacing: 0.3px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #667eea;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo em {
+        font-size: 32px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 15px;
+        list-style: none;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        background: #667eea;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #5568d3;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-secondary {
+        background: #f093fb;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: #e080e8;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
+      }
+
+      .btn-success {
+        background: #4caf50;
+        color: white;
+      }
+
+      .btn-success:hover {
+        background: #45a049;
+        transform: translateY(-2px);
+      }
+
+      .btn-danger {
+        background: #f44336;
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background: #da190b;
+        transform: translateY(-2px);
+      }
+
+      .content {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #667eea;
+        margin-bottom: 20px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+      }
+
+      footer {
+        text-align: center;
+        color: white;
+        padding: 20px;
+        font-size: 14px;
+      }
+
+      .error-message {
+        background: #ffebee;
+        color: #c62828;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border-left: 4px solid #c62828;
+      }
+
+      .success-message {
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border-left: 4px solid #2e7d32;
+      }
+
+      @media (max-width: 768px) {
         body {
-            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #667eea;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo em {
-            font-size: 32px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f093fb;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #e080e8;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
-        }
-
-        .btn-success {
-            background: #4caf50;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background: #f44336;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #da190b;
-            transform: translateY(-2px);
+          padding: 10px;
         }
 
         .content {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
+          padding: 20px;
         }
 
-        h1, h2, h3 {
-            color: #667eea;
-            margin-bottom: 20px;
+        nav {
+          flex-direction: column;
+          gap: 10px;
         }
 
-        footer {
-            text-align: center;
-            color: white;
-            padding: 20px;
-            font-size: 14px;
+        .nav-links {
+          flex-direction: column;
+          width: 100%;
         }
 
-        .error-message {
-            background: #ffebee;
-            color: #c62828;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #c62828;
+        .nav-links a {
+          text-align: center;
+          width: 100%;
         }
 
-        .success-message {
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #2e7d32;
+        .auth-buttons {
+          width: 100%;
+          flex-direction: column;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .nav-links {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .nav-links a {
-                text-align: center;
-                width: 100%;
-            }
-
-            .auth-buttons {
-                width: 100%;
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
+        .btn {
+          width: 100%;
+          text-align: center;
         }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <nav>
-                <div class="logo">
-                    <em>🎓</em>
-                    <a href="{% url 'home' %}" style="text-decoration: none; color: #667eea;">Học Chữ Cái</a>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="{% url 'home' %}">Trang chủ</a></li>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'progress' %}">Tiến độ</a></li>
-                        <li><a href="{% url 'badges' %}">Huy hiệu</a></li>
-                    {% endif %}
-                </ul>
-                <div class="auth-buttons">
-                    {% if user.is_authenticated %}
-                        <span style="color: #667eea; font-weight: bold;">👤 {{ user.username }}</span>
-                        <a href="{% url 'logout' %}" class="btn btn-danger">Đăng xuất</a>
-                    {% else %}
-                        <a href="{% url 'login' %}" class="btn btn-primary">Đăng nhập</a>
-                        <a href="{% url 'register' %}" class="btn btn-secondary">Đăng ký</a>
-                    {% endif %}
-                </div>
-            </nav>
-        </header>
-
-        <div class="content">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}-message">
-                        {{ message }}
-                    </div>
-                {% endfor %}
+      <header>
+        <nav>
+          <div class="logo">
+            <em>🎓</em>
+            <a
+              href="{% url 'home' %}"
+              style="text-decoration: none; color: #667eea"
+              >Học Chữ Cái</a
+            >
+          </div>
+          <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Trang chủ</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'progress' %}">Tiến độ</a></li>
+            <li><a href="{% url 'badges' %}">Huy hiệu</a></li>
             {% endif %}
+          </ul>
+          <div class="auth-buttons">
+            {% if user.is_authenticated %}
+            <span style="color: #667eea; font-weight: bold"
+              >👤 {{ user.username }}</span
+            >
+            <a href="{% url 'logout' %}" class="btn btn-danger">Đăng xuất</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Đăng nhập</a>
+            <a href="{% url 'register' %}" class="btn btn-secondary">Đăng ký</a>
+            {% endif %}
+          </div>
+        </nav>
+      </header>
 
-            {% block content %}{% endblock %}
+      <div class="content">
+        {% if messages %} {% for message in messages %}
+        <div
+          class="{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}-message"
+        >
+          {{ message }}
         </div>
+        {% endfor %} {% endif %} {% block content %}{% endblock %}
+      </div>
 
-        <footer>
-            <p>© 2025 Học Chữ Cái - Ứng dụng học tiếng Việt cho bé | Made with ❤️ for kids</p>
-        </footer>
+      <footer>
+        <p>
+          © 2025 Học Chữ Cái - Ứng dụng học tiếng Việt cho bé | Made with ❤️ for
+          kids
+        </p>
+      </footer>
     </div>
 
     <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/audio.js' %}"></script>
     {% block extra_js %}{% endblock %}
-</body>
+  </body>
 </html>

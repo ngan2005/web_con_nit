@@ -90,6 +90,10 @@ def lesson_detail(request, lesson_id):
         'is_completed': lesson in progress.lessons_completed.all(),
     }
     
+    # Dùng template đặc biệt cho chữ cái nếu là bài chữ cái
+    if lesson.lesson_type == 'alphabet':
+        return render(request, 'lessons/alphabet_detail.html', context)
+    
     return render(request, 'lessons/lesson_detail.html', context)
 
 

@@ -1,204 +1,253 @@
-{% extends 'lessons/base.html' %}
-
-{% block title %}{{ lesson.title }} - Học Chữ Cái{% endblock %}
-
-{% block content %}
+{% extends 'lessons/base.html' %} {% block title %}{{ lesson.title }} - Học Chữ
+Cái{% endblock %} {% block content %}
 <style>
-    .lesson-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 40px;
-        border-radius: 15px;
-        margin-bottom: 30px;
-        text-align: center;
-    }
+  .lesson-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
 
-    .lesson-header h1 {
-        color: white;
-        font-size: 40px;
-        margin-bottom: 10px;
-    }
+  .lesson-header h1 {
+    color: white;
+    font-size: 40px;
+    margin-bottom: 10px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+  }
 
-    .lesson-type {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.2);
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
+  .lesson-type {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+  }
 
-    .lesson-content {
-        background: white;
-        padding: 30px;
-        border-radius: 15px;
-        margin-bottom: 30px;
-        line-height: 1.8;
-    }
+  .audio-btn {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-left: 15px;
+    font-family: "Nunito", sans-serif;
+  }
 
-    .lesson-content img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        margin: 20px 0;
-    }
+  .audio-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+  }
 
-    .lesson-actions {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
+  .audio-btn.playing {
+    background: white;
+    color: #667eea;
+    animation: pulse 0.6s infinite;
+  }
 
-    .action-btn {
-        padding: 15px 30px;
-        font-size: 18px;
-        border-radius: 10px;
-        text-decoration: none;
-        display: inline-block;
-        transition: all 0.3s ease;
-        font-weight: 600;
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
     }
+    50% {
+      opacity: 0.7;
+    }
+  }
 
-    .completed-badge {
-        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
-        color: white;
-        text-align: center;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        font-size: 18px;
-    }
+  .lesson-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    line-height: 1.8;
+  }
 
-    .lesson-nav {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 30px;
-        flex-wrap: wrap;
-    }
+  .lesson-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin: 20px 0;
+  }
 
-    .nav-btn {
-        padding: 10px 20px;
-        background: #667eea;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
+  .lesson-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-    .nav-btn:hover {
-        background: #5568d3;
-        transform: translateY(-2px);
-    }
+  .action-btn {
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
 
-    .vocab-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
-        margin: 30px 0;
-    }
+  .completed-badge {
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
 
-    .vocab-item {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
+  .lesson-nav {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
 
-    .vocab-icon {
-        font-size: 32px;
-        margin-bottom: 10px;
-    }
+  .nav-btn {
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
 
-    .vocab-word {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
+  .nav-btn:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+  }
 
-    .vocab-pronunciation {
-        font-size: 12px;
-        opacity: 0.9;
-    }
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+  }
 
-    .quiz-section {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        color: white;
-        padding: 30px;
-        border-radius: 15px;
-        text-align: center;
-        margin-top: 30px;
-    }
+  .vocab-item {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
 
-    .quiz-title {
-        color: white;
-        font-size: 28px;
-        margin-bottom: 15px;
-    }
+  .vocab-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
 
-    .quiz-desc {
-        margin-bottom: 20px;
-        opacity: 0.95;
-    }
+  .vocab-word {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
 
-    .quiz-btn {
-        background: white;
-        color: #f5576c;
-        padding: 12px 30px;
-        font-weight: 600;
-        border-radius: 8px;
-        text-decoration: none;
-        display: inline-block;
-        transition: all 0.3s ease;
-    }
+  .vocab-pronunciation {
+    font-size: 12px;
+    opacity: 0.9;
+  }
 
-    .quiz-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
+  .quiz-section {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .quiz-title {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .quiz-desc {
+    margin-bottom: 20px;
+    opacity: 0.95;
+  }
+
+  .quiz-btn {
+    background: white;
+    color: #f5576c;
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+
+  .quiz-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
 </style>
 
 <div class="lesson-header">
-    <div class="lesson-type">
-        {% if lesson.lesson_type == 'alphabet' %}
-            🔤 Chữ cái
-        {% elif lesson.lesson_type == 'vocabulary' %}
-            📖 Từ vựng
-        {% elif lesson.lesson_type == 'sentences' %}
-            💬 Câu cơ bản
-        {% else %}
-            🎵 Phát âm
-        {% endif %}
-    </div>
-    <h1>{{ lesson.title }}</h1>
+  <div class="lesson-type">
+    {% if lesson.lesson_type == 'alphabet' %} 🔤 Chữ cái {% elif
+    lesson.lesson_type == 'vocabulary' %} 📖 Từ vựng {% elif lesson.lesson_type
+    == 'sentences' %} 💬 Câu cơ bản {% else %} 🎵 Phát âm {% endif %}
+  </div>
+  <h1>
+    {{ lesson.title }}
+    <button
+      class="audio-btn"
+      data-audio-text="{{ lesson.title }}"
+      data-audio-btn
+    >
+      🔊 Phát âm
+    </button>
+  </h1>
 </div>
 
 {% if is_completed %}
-    <div class="completed-badge">
-        ✅ Bạn đã hoàn thành bài học này!
-    </div>
+<div class="completed-badge">✅ Bạn đã hoàn thành bài học này!</div>
 {% endif %}
 
 <div class="lesson-content">
-    {{ lesson.content|safe }}
-    
-    {% if lesson.image %}
-        <img src="{{ lesson.image.url }}" alt="{{ lesson.title }}">
-    {% endif %}
+  {{ lesson.content|safe }} {% if lesson.image %}
+  <img src="{{ lesson.image.url }}" alt="{{ lesson.title }}" />
+  {% endif %}
 </div>
 
 <div class="lesson-actions">
-    <a href="{% url 'home' %}" class="action-btn" style="background: #999; color: white;">← Quay lại</a>
-    {% if not is_completed %}
-        <a href="{% url 'quiz' lesson.id %}" class="action-btn" style="background: #4caf50; color: white;">Làm bài tập →</a>
-    {% else %}
-        <a href="{% url 'quiz' lesson.id %}" class="action-btn" style="background: #2196f3; color: white;">Làm lại bài tập</a>
-    {% endif %}
+  <a
+    href="{% url 'home' %}"
+    class="action-btn"
+    style="background: #999; color: white"
+    >← Quay lại</a
+  >
+  {% if not is_completed %}
+  <a
+    href="{% url 'quiz' lesson.id %}"
+    class="action-btn"
+    style="background: #4caf50; color: white"
+    >Làm bài tập →</a
+  >
+  {% else %}
+  <a
+    href="{% url 'quiz' lesson.id %}"
+    class="action-btn"
+    style="background: #2196f3; color: white"
+    >Làm lại bài tập</a
+  >
+  {% endif %}
 </div>
 
 {% endblock %}
